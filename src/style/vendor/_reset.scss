@@ -33,6 +33,7 @@ html:focus-within {
 /* Set core body defaults */
 body {
   min-height: 100vh;
+  /* stylelint-disable-next-line value-keyword-case */
   text-rendering: optimizeSpeed;
   line-height: 1.5;
 }
