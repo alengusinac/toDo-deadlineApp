@@ -150,3 +150,53 @@ header {
     }
   }
 }
+
+/* ***********************toDO LIST******************* */
+
+.todo-item {
+  position: relative;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $toDoLightGrey;
+  padding: 0 5px;
+
+  button {
+    height: 50px;
+    width: 50px;
+    background-color: transparent;
+    border: none;
+
+    &:nth-child(1) {
+      color: $toDoLightGrey;
+    }
+
+    &:nth-child(4) {
+      color: $toDoRed;
+    }
+
+    span {
+      font-size: 2.5rem;
+    }
+  }
+
+  p {
+    flex-grow: 1;
+    padding: 0 20px;
+    color: $textColor;
+  }
+
+  .time-left {
+    position: absolute;
+    width: 100px;
+    top: 0;
+    right: 50px;
+    color: $textColor;
+
+    span:nth-child(2) {
+      position: relative;
+      top: -5px;
+    }
+  }
+}
