@@ -13,6 +13,7 @@ const addContainer = document.querySelector('.add-item-container');
 
 /* **********************FUNCTIONS********************** */
 
+// Opening sort and add container
 function openContainer(e): void {
   const targetID = e.currentTarget.id;
 
