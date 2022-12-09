@@ -2,6 +2,7 @@
 @use "utils/a11y"; // Om det inte funkar, byt @use mot @import
 @use "vendor/reset";
 
+/* ***********************VARIABLES******************* */
 $backgroundColor: black;
 $textColor: #FFF;
 $toDoYellow: #FBFF3C;
@@ -9,11 +10,13 @@ $toDoRed: #FF4646;
 $toDoLightGrey: #A6A6A6;
 $toDoGrey: #222;
 
+/* ***********************GLOBAL******************* */
 body {
   background-color: $backgroundColor;
   overflow-x: hidden;
 }
 
+/* ***********************HEADER******************* */
 header {
   height: 80px;
   width: 100%;
@@ -71,6 +74,9 @@ header {
   }
 }
 
+/* ***********************SORT AND ADD******************* */
+
+
 .sort-container, .add-item-container {
   position: fixed;
   min-height: calc(100vh - 80px);
@@ -97,6 +103,7 @@ header {
   }
 }
 
+/* ***********************SORT******************* */
 .sort-container {
   flex-direction: column;
   align-items: center;
@@ -113,6 +120,7 @@ header {
   }
 }
 
+/* ***********************ADD******************* */
 .add-item-container {
   justify-content: center;
   right: -100%;
