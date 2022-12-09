@@ -202,7 +202,9 @@ header {
 
   &.checked {
     button:nth-child(1) span {
-      background-color: rgba(0, 255, 0, 0.467);
+      background-color: #0F0;
+      opacity: 0.8;
+      color: $textColor;
       border-radius: 50%;
     }
 
