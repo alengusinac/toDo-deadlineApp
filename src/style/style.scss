@@ -71,14 +71,50 @@ header {
   }
 }
 
-.add-item-container {
+.sort-container, .add-item-container {
   position: fixed;
   min-height: calc(100vh - 80px);
   width: 100%;
   background-color: $backgroundColor;
   display: flex;
+  padding: 10px 0;
+
+  button {
+    height: 40px;
+    width: 200px;
+    background-color: $toDoGrey;
+    color: $toDoYellow;
+    border: 3px solid $toDoYellow;
+
+    &:hover {
+      border-color: $textColor;
+      box-shadow: 2px 2px 4px $toDoYellow;
+    }
+
+    &:active {
+      box-shadow: none;
+    }
+  }
+}
+
+.sort-container {
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  left: -100%;
+  transition: left 0.3s ease-in-out;
+
+  &.open {
+    left: 0;
+  }
+
+  h2 {
+    color: $toDoYellow;
+  }
+}
+
+.add-item-container {
   justify-content: center;
-  padding: 20px 0;
   right: -100%;
   transition: right 0.3s ease-in-out;
 
@@ -103,14 +139,6 @@ header {
       width: 100%;
       padding-left: 20px;
       border: 1px solid $toDoYellow;
-    }
-
-    button {
-      height: 40px;
-      width: 175px;
-      background-color: $toDoGrey;
-      color: $toDoYellow;
-      border: 3px solid $toDoYellow;
     }
   }
 }
