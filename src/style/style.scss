@@ -199,4 +199,39 @@ header {
       top: -5px;
     }
   }
+
+  &.checked {
+    button:nth-child(1) span {
+      background-color: rgba(0, 255, 0, 0.467);
+      border-radius: 50%;
+    }
+
+    p {
+      color: $toDoLightGrey;
+    }
+
+    .time-left span:nth-child(2) {
+      color: $toDoLightGrey;
+    }
+  }
+
+  &.close-deadline {
+    p {
+      color: $toDoYellow;
+    }
+
+    .time-left span:nth-child(2) {
+      color: $toDoYellow;
+    }
+  }
+
+  &.after-deadline {
+    p {
+      color: $toDoRed;
+    }
+
+    .time-left span:nth-child(2) {
+      color: $toDoRed;
+    }
+  }
 }
