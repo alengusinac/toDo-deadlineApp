@@ -76,7 +76,6 @@ header {
 
 /* ***********************SORT AND ADD******************* */
 
-
 .sort-container, .add-item-container {
   position: fixed;
   min-height: calc(100vh - 80px);
@@ -93,13 +92,20 @@ header {
     color: $toDoYellow;
     border: 3px solid $toDoYellow;
 
-    &:hover {
-      border-color: $textColor;
-      box-shadow: 2px 2px 4px $toDoYellow;
+    &:enabled {
+      &:hover {
+        border-color: $textColor;
+        box-shadow: 2px 2px 4px $toDoYellow;
+      }
+  
+      &:active {
+        box-shadow: none;
+      }
     }
 
-    &:active {
-      box-shadow: none;
+    &:disabled {
+      border-color: $toDoLightGrey;
+      color: $textColor;
     }
   }
 }

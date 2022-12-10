@@ -46,22 +46,27 @@
     </section>
 
      <!---------------------ADD ITEM MENU---------------------------->
-    <section class="add-item-container open">
+    <section class="add-item-container">
 
-      <form action="">
+      <form onsubmit="return false;" novalidate>
         <label>
-          title
-          <input type="text" placeholder="ex. Eat Icecream">
+          title <span class="input-error"></span>
+          <input id="title-input" type="text" placeholder="ex. Eat Icecream">
         </label>
         <label>
-          category
-          <input type="text" placeholder="category">
+          category <span class="input-error"></span>
+          <input list="browse" id="category-input" type="text" placeholder="write a new one or choose from list">
+          <datalist id="browse">
+            <option value="Home">
+            <option value="Work">
+          </datalist>
         </label>
         <label>
-          date
-          <input type="date">
+          deadline date <span class="input-error"></span>
+          <input id="date-input" type="date"
+        min="2022-12-10" max="2030-12-31" required>
         </label>
-        <button id="add-item-btn" aria-label="for submitting form.">add toDo</button>
+        <button id="add-item-btn" aria-label="for submitting form." disabled>add toDo</button>
       </form>
     </section>
 
