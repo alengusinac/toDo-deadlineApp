@@ -11,6 +11,18 @@ const addBtn = document.querySelector('#add-btn');
 const sortContainer = document.querySelector('.sort-container');
 const addContainer = document.querySelector('.add-item-container');
 
+// toDo ITEM LIST
+const itemList: object[] = [
+  {
+    title: 'Example',
+    category: 'example',
+    deadline: '2023-01-17',
+    dateAdded: 'Sat Dec 10 2022 16:10:26 GMT+0800 (Central Indonesia Time)',
+  },
+];
+
+const todoItemsContainer = document.querySelector('#todo-items-container');
+
 // ADD ITEM FORM
 const titleInput = document.querySelector('#title-input');
 const categoryInput = document.querySelector('#category-input');
@@ -78,7 +90,7 @@ function validateForm(e) {
       errorMsgContainer.innerHTML = 'cannot be in the Past';
     }
   }
-  console.log(validDateInput);
+
   // VALIDATE IF TITLE INPUT IS EMPTY
   if (targetInput.id === 'title-input') {
     if (targetInputValue) {
@@ -112,6 +124,7 @@ function renderList() {
   todoItemsContainer.innerHTML = '';
 
   for (let i = 0; i < itemList.length; i++) {
+    //const deadlineInDays = calculateDeadline();
     const item = itemList[i];
 
     todoItemsContainer.innerHTML += `
@@ -175,3 +188,5 @@ titleInput?.addEventListener('blur', validateForm);
 categoryInput?.addEventListener('blur', validateForm);
 dateInput?.addEventListener('change', validateForm);
 addItemBtn?.addEventListener('click', addItemToList);
+
+renderList();
