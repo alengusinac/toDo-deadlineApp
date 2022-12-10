@@ -36,7 +36,7 @@ let validDateInput = false;
 /* **********************FUNCTIONS********************** */
 
 // Opening sort and add container
-function openContainer(e): void {
+function openContainer(e: MouseEvent): void {
   const targetID = e.currentTarget.id;
 
   if (targetID === 'sorting-btn') {
@@ -52,7 +52,7 @@ function openContainer(e): void {
   }
 }
 
-function validateForm(e) {
+function validateForm(e: MouseEvent): void {
   const targetInput = e.currentTarget;
   const targetInputValue = targetInput.value;
   const errorMsgContainer = targetInput.parentElement.querySelector('.input-error');
@@ -120,7 +120,7 @@ function validateForm(e) {
   }
 }
 
-function renderList() {
+function renderList(): void {
   todoItemsContainer.innerHTML = '';
 
   for (let i = 0; i < itemList.length; i++) {
@@ -150,7 +150,7 @@ function renderList() {
   }
 }
 
-function addItemToList() {
+function addItemToList(): void {
   const titleValue = titleInput?.value;
   const categoryValue = categoryInput?.value;
   const dateValue = dateInput.value;
@@ -168,7 +168,7 @@ function addItemToList() {
   renderList();
 }
 
-function clearForm() {
+function clearForm(): void {
   addContainer?.classList.remove('open');
   addItemBtn?.setAttribute('disabled', 'true');
   titleInput.value = '';
