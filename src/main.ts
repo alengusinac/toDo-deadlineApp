@@ -14,7 +14,7 @@ const addContainer = document.querySelector('.add-item-container') as HTMLDivEle
 type Item = {
   title?: string,
   category?: string,
-  deadline?: string,
+  deadline?: Date,
   dateAddedToList?: Date;
 };
 
@@ -23,7 +23,7 @@ const itemList: Item[] = [
   {
     title: 'Example',
     category: 'example',
-    deadline: '2023-01-17',
+    deadline: new Date('2023-01-17 00:00:00'),
     dateAddedToList: new Date('Sat Dec 10 2022 16:10:26 GMT+0800 (Central Indonesia Time)'),
   },
 ];
@@ -129,12 +129,21 @@ function validateForm(e: Event): void {
   }
 }
 
+function calculateDeadline(item: Item): number {
+  const itemDeadlineDate: number = item.deadline!.getTime();
+  const todaysDate: number = new Date().getTime();
+  const difference = itemDeadlineDate - todaysDate;
+  const daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
+
+  return daysDifference;
+}
+
 function renderList(): void {
   todoItemsContainer.innerHTML = '';
 
   for (let i = 0; i < itemList.length; i++) {
-    // const deadlineInDays = calculateDeadline();
     const item: Item = itemList[i];
+    const deadlineInDays = calculateDeadline(item);
 
     todoItemsContainer.innerHTML += `
     <article class="todo-item">
@@ -147,7 +156,7 @@ function renderList(): void {
 
       <div class="time-left">
         <span class="material-symbols-outlined">hourglass_empty</span>
-        <span>2h 30min</span>
+        <span>${deadlineInDays}days</span>
       </div>
 
       <button>
@@ -170,7 +179,7 @@ function clearForm(): void {
 function addItemToList(): void {
   const titleValue = titleInput?.value;
   const categoryValue = categoryInput?.value;
-  const dateValue = dateInput.value;
+  const dateValue = new Date(dateInput.value);
   const dateAdded = new Date();
 
   const newItem: Item = {
