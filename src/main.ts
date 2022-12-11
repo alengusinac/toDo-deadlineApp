@@ -37,7 +37,8 @@ let validDateInput = false;
 
 // Opening sort and add container
 function openContainer(e: MouseEvent): void {
-  const targetID = e.currentTarget.id;
+  const target = e.currentTarget as HTMLButtonElement;
+  const targetID = target.id;
 
   if (targetID === 'sorting-btn') {
     sortContainer?.classList.toggle('open');
@@ -53,9 +54,10 @@ function openContainer(e: MouseEvent): void {
 }
 
 function validateForm(e: MouseEvent): void {
-  const targetInput = e.currentTarget;
+  const targetInput = e.currentTarget as HTMLInputElement;
   const targetInputValue = targetInput.value;
-  const errorMsgContainer = targetInput.parentElement.querySelector('.input-error');
+  const targetLabelContainer = targetInput.parentElement as HTMLLabelElement;
+  const errorMsgContainer = targetLabelContainer.querySelector('.input-error') as HTMLSpanElement;
 
   // VALIDATE DATE INPUT
   if (targetInput.id === 'date-input') {
