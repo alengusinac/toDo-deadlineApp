@@ -11,13 +11,20 @@ const addBtn = document.querySelector('#add-btn') as HTMLButtonElement;
 const sortContainer = document.querySelector('.sort-container') as HTMLDivElement;
 const addContainer = document.querySelector('.add-item-container') as HTMLDivElement;
 
+type Item = {
+  title?: string,
+  category?: string,
+  deadline?: string,
+  dateAddedToList?: Date;
+};
+
 // toDo ITEM LIST
-const itemList: object[] = [
+const itemList: Item[] = [
   {
     title: 'Example',
     category: 'example',
     deadline: '2023-01-17',
-    dateAdded: 'Sat Dec 10 2022 16:10:26 GMT+0800 (Central Indonesia Time)',
+    dateAddedToList: new Date('Sat Dec 10 2022 16:10:26 GMT+0800 (Central Indonesia Time)'),
   },
 ];
 
@@ -127,8 +134,7 @@ function renderList(): void {
 
   for (let i = 0; i < itemList.length; i++) {
     // const deadlineInDays = calculateDeadline();
-    const item = itemList[i];
-    const itemTitle = item.title as string;
+    const item: Item = itemList[i];
 
     todoItemsContainer.innerHTML += `
     <article class="todo-item">
@@ -137,7 +143,7 @@ function renderList(): void {
         <span class="material-symbols-outlined">task_alt</span>
       </button>
 
-      <p>${itemTitle}</p>
+      <p>${item.title!}</p>
 
       <div class="time-left">
         <span class="material-symbols-outlined">hourglass_empty</span>
@@ -167,7 +173,7 @@ function addItemToList(): void {
   const dateValue = dateInput.value;
   const dateAdded = new Date();
 
-  const newItem = {
+  const newItem: Item = {
     title: titleValue,
     category: categoryValue,
     deadline: dateValue,
