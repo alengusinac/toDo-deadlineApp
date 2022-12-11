@@ -3,13 +3,13 @@ import './style/style.scss';
 /* **********************VARIABLES********************** */
 
 // HEADER BUTTONS
-const sortBtn = document.querySelector('#sorting-btn');
-const categoriesBtn = document.querySelector('#categories-btn');
-const addBtn = document.querySelector('#add-btn');
+const sortBtn = document.querySelector('#sorting-btn') as HTMLButtonElement;
+const categoriesBtn = document.querySelector('#categories-btn') as HTMLButtonElement;
+const addBtn = document.querySelector('#add-btn') as HTMLButtonElement;
 
 // HEADER CONTAINERS
-const sortContainer = document.querySelector('.sort-container');
-const addContainer = document.querySelector('.add-item-container');
+const sortContainer = document.querySelector('.sort-container') as HTMLDivElement;
+const addContainer = document.querySelector('.add-item-container') as HTMLDivElement;
 
 // toDo ITEM LIST
 const itemList: object[] = [
@@ -21,13 +21,13 @@ const itemList: object[] = [
   },
 ];
 
-const todoItemsContainer = document.querySelector('#todo-items-container');
+const todoItemsContainer = document.querySelector('#todo-items-container') as HTMLDivElement;
 
 // ADD ITEM FORM
-const titleInput = document.querySelector('#title-input');
-const categoryInput = document.querySelector('#category-input');
-const dateInput = document.querySelector('#date-input');
-const addItemBtn = document.querySelector('#add-item-btn');
+const titleInput = document.querySelector('#title-input') as HTMLInputElement;
+const categoryInput = document.querySelector('#category-input') as HTMLInputElement;
+const dateInput = document.querySelector('#date-input') as HTMLInputElement;
+const addItemBtn = document.querySelector('#add-item-btn') as HTMLButtonElement;
 
 let validTitleInput = false;
 let validCategoryInput = false;
@@ -53,7 +53,7 @@ function openContainer(e: MouseEvent): void {
   }
 }
 
-function validateForm(e: MouseEvent): void {
+function validateForm(e: Event): void {
   const targetInput = e.currentTarget as HTMLInputElement;
   const targetInputValue = targetInput.value;
   const targetLabelContainer = targetInput.parentElement as HTMLLabelElement;
@@ -126,8 +126,9 @@ function renderList(): void {
   todoItemsContainer.innerHTML = '';
 
   for (let i = 0; i < itemList.length; i++) {
-    //const deadlineInDays = calculateDeadline();
+    // const deadlineInDays = calculateDeadline();
     const item = itemList[i];
+    const itemTitle = item.title as string;
 
     todoItemsContainer.innerHTML += `
     <article class="todo-item">
@@ -136,7 +137,7 @@ function renderList(): void {
         <span class="material-symbols-outlined">task_alt</span>
       </button>
 
-      <p>${item.title}</p>
+      <p>${itemTitle}</p>
 
       <div class="time-left">
         <span class="material-symbols-outlined">hourglass_empty</span>
@@ -152,30 +153,30 @@ function renderList(): void {
   }
 }
 
-function addItemToList(): void {
-  const titleValue = titleInput?.value;
-  const categoryValue = categoryInput?.value;
-  const dateValue = dateInput.value;
-  const dateAdded = new Date();
-
-  let newItem = {
-    title: titleValue,
-    category: categoryValue,
-    deadline: dateValue,
-    dateAdded: dateAdded
-  }
-
-  itemList.push(newItem);
-  clearForm();
-  renderList();
-}
-
 function clearForm(): void {
   addContainer?.classList.remove('open');
   addItemBtn?.setAttribute('disabled', 'true');
   titleInput.value = '';
   categoryInput.value = '';
   dateInput.value = '';
+}
+
+function addItemToList(): void {
+  const titleValue = titleInput?.value;
+  const categoryValue = categoryInput?.value;
+  const dateValue = dateInput.value;
+  const dateAdded = new Date();
+
+  const newItem = {
+    title: titleValue,
+    category: categoryValue,
+    deadline: dateValue,
+    dateAddedToList: dateAdded,
+  };
+
+  itemList.push(newItem);
+  clearForm();
+  renderList();
 }
 
 /* **********************LOGIC********************** */
