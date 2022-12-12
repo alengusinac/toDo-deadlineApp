@@ -130,6 +130,13 @@ function validateForm(e: Event): void {
   }
 }
 
+function checkIfChecked(item: Item): string {
+  if (item.isChecked) {
+    return ' checked';
+  }
+  return '';
+}
+
 function calculateDeadline(item: Item): number {
   const itemDeadlineDate: number = item.deadline!.getTime();
   const todaysDate: number = new Date().getTime();
@@ -144,10 +151,11 @@ function renderList(): void {
 
   for (let i = 0; i < itemList.length; i++) {
     const item: Item = itemList[i];
+    const isChecked = checkIfChecked(item);
     const deadlineInDays = calculateDeadline(item);
 
     todoItemsContainer.innerHTML += `
-    <article class="todo-item">
+    <article class="todo-item open${isChecked}">
 
       <button>
         <span id="${i}" class="material-symbols-outlined check-item-btn">task_alt</span>
@@ -188,6 +196,8 @@ function checkItem(e: Event): void {
   } else {
     item.isChecked = true;
   }
+
+  renderList();
 }
 
 function addEventListenersToItemBtns(): void {
