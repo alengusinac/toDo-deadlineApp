@@ -177,10 +177,28 @@ header {
 
     &:nth-child(1) {
       color: $toDoLightGrey;
+
+      &:hover {
+        color: $textColor;
+        text-shadow: 2px 2px 2px $toDoLightGrey;
+      }
+
+      &:active {
+        text-shadow: none;
+      }
     }
 
     &:nth-child(4) {
       color: $toDoRed;
+
+      &:hover {
+        color: #f00;
+        text-shadow: 2px 2px 2px $toDoRed;
+      }
+
+      &:active {
+        text-shadow: none;
+      }
     }
 
     span {
