@@ -15,7 +15,8 @@ type Item = {
   title?: string,
   category?: string,
   deadline?: Date,
-  dateAddedToList?: Date;
+  dateAddedToList?: Date,
+  isChecked?: boolean,
 };
 
 // toDo ITEM LIST
@@ -149,7 +150,7 @@ function renderList(): void {
     <article class="todo-item">
 
       <button>
-        <span class="material-symbols-outlined">task_alt</span>
+        <span id="${i}" class="material-symbols-outlined check-item-btn">task_alt</span>
       </button>
 
       <p>${item.title!}</p>
@@ -160,11 +161,47 @@ function renderList(): void {
       </div>
 
       <button>
-        <span class="material-symbols-outlined">do_not_disturb_on</span>
+        <span id="${i}" class="material-symbols-outlined remove-item-btn">do_not_disturb_on</span>
       </button>
     
     </article>
     `;
+  }
+  addEventListenersToItemBtns();
+}
+
+function removeItem(e: Event): void {
+  const button = e.currentTarget as HTMLSpanElement;
+  const buttonID = Number(button.id);
+
+  itemList.splice(buttonID, 1);
+  renderList();
+}
+
+function checkItem(e: Event): void {
+  const button = e.currentTarget as HTMLSpanElement;
+  const buttonID = Number(button.id);
+  const item = itemList[buttonID];
+
+  if (item.isChecked) {
+    item.isChecked = false;
+  } else {
+    item.isChecked = true;
+  }
+}
+
+function addEventListenersToItemBtns(): void {
+  const removeItemBtns = document.querySelectorAll('.remove-item-btn') as NodeList;
+  const checkItemBtns = document.querySelectorAll('.check-item-btn') as NodeList;
+
+  for (let i = 0; i < removeItemBtns.length; i++) {
+    const removeItemBtn = removeItemBtns[i];
+    removeItemBtn.addEventListener('click', removeItem);
+  }
+
+  for (let i = 0; i < checkItemBtns.length; i++) {
+    const removeItemBtn = checkItemBtns[i];
+    removeItemBtn.addEventListener('click', checkItem);
   }
 }
 
@@ -187,6 +224,7 @@ function addItemToList(): void {
     category: categoryValue,
     deadline: dateValue,
     dateAddedToList: dateAdded,
+    isChecked: false,
   };
 
   itemList.push(newItem);
