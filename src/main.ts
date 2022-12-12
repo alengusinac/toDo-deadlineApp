@@ -21,14 +21,7 @@ type Item = {
 };
 
 // toDo ITEM LIST
-const itemList: Item[] = [
-  {
-    title: 'Example',
-    category: 'example',
-    deadline: new Date('2023-01-17 00:00:00'),
-    dateAddedToList: new Date('Sat Dec 10 2022 16:10:26 GMT+0800 (Central Indonesia Time)'),
-  },
-];
+let itemList: object[] = [];
 
 const todoItemsContainer = document.querySelector('#todo-items-container') as HTMLDivElement;
 
@@ -139,7 +132,8 @@ function checkIfChecked(item: Item): string {
 }
 
 function calculateDeadline(item: Item): number {
-  const itemDeadlineDate: number = item.deadline!.getTime();
+  const datefromJSON = new Date(item.deadline!);
+  const itemDeadlineDate: number = datefromJSON.getTime();
   const todaysDate: number = new Date().getTime();
   const difference = itemDeadlineDate - todaysDate;
   const daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
@@ -177,6 +171,7 @@ function renderList(): void {
     `;
   }
   addEventListenersToItemBtns();
+  saveData();
 }
 
 function removeItem(e: Event): void {
@@ -243,6 +238,15 @@ function addItemToList(): void {
   renderList();
 }
 
+function saveData(): void {
+  localStorage.setItem('data', JSON.stringify(itemList));
+}
+
+function loadData(): void {
+  if (localStorage.getItem('data') !== null) {
+    itemList = JSON.parse(localStorage.getItem('data'));
+  }
+}
 /* **********************LOGIC********************** */
 
 // HEADER EVENTLISTENERS
@@ -256,4 +260,6 @@ categoryInput?.addEventListener('blur', validateForm);
 dateInput?.addEventListener('change', validateForm);
 addItemBtn?.addEventListener('click', addItemToList);
 
+loadData();
 renderList();
+console.log(itemList);
