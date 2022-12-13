@@ -142,16 +142,27 @@ function calculateDeadline(item: Item): number {
   return daysDifference;
 }
 
+function checkIfCloseDeadline(deadlineInDays: number): string {
+  if (deadlineInDays <= 5) {
+    return ' close-deadline';
+  }
+  if (deadlineInDays <= 0) {
+    return 'after-deadline';
+  }
+  return '';
+}
+
 function renderList(): void {
   todoItemsContainer.innerHTML = '';
 
   for (let i = 0; i < itemList.length; i++) {
-    const item: Item = itemList[i];
+    const item = itemList[i];
     const isChecked = checkIfChecked(item);
     const deadlineInDays = calculateDeadline(item);
+    const closeDeadline = checkIfCloseDeadline(deadlineInDays);
 
     todoItemsContainer.innerHTML += `
-    <article class="todo-item open${isChecked}">
+    <article class="todo-item open${isChecked}${closeDeadline}">
 
       <button>
         <span id="${i}" class="material-symbols-outlined check-item-btn">task_alt</span>

@@ -9,6 +9,7 @@ $toDoGrey: #222;
 @media only screen and (min-width: 500px) {
   body {
     background-color: $toDoGrey;
+    padding: 20px 0;
   }
 
   .card-container {
@@ -16,7 +17,7 @@ $toDoGrey: #222;
     max-width: 500px;
     min-height: 750px;
     background-color: $backgroundColor;
-    margin: 20px auto;
+    margin: 0 auto;
     border: 2px solid $toDoYellow;
     border-radius: 20px;
     overflow: hidden;
@@ -24,5 +25,6 @@ $toDoGrey: #222;
 
   .sort-container, .add-item-container {
     background-color: $backgroundColor;
+    min-height: calc(100vh - 140px);
   }
 }
