@@ -13,66 +13,69 @@
     <title>toDo: by alengusinac</title>
   </head>
   <body>
+    
+    <div class="card-container">
+      <!--------------------------HEADER---------------------------------->
+      <header>
 
-    <!--------------------------HEADER---------------------------------->
-    <header>
+        <button id="sorting-btn" aria-label="button for sorting todo list">
+          <span class="material-symbols-outlined">tune</span>
+        </button>
 
-      <button id="sorting-btn" aria-label="button for sorting todo list">
-        <span class="material-symbols-outlined">tune</span>
-      </button>
+        <button id="categories-btn" aria-label="button for changing categories">
+          <span>all categories</span>
+          <span class="material-symbols-outlined">keyboard_arrow_down</span>
+        </button>
 
-      <button id="categories-btn" aria-label="button for changing categories">
-        <span>all categories</span>
-        <span class="material-symbols-outlined">keyboard_arrow_down</span>
-      </button>
+        <button id="add-btn" aria-label="button for adding todo to list">
+          <span class="material-symbols-outlined">add_box</span>
+        </button>
 
-      <button id="add-btn" aria-label="button for adding todo to list">
-        <span class="material-symbols-outlined">add_box</span>
-      </button>
+      </header>
 
-    </header>
+      <!-------------------------SORT MENU----------------------------->
+      <section class="sort-container">
 
-    <!-------------------------SORT MENU----------------------------->
-    <section class="sort-container">
+        <h2>sort</h2>
 
-      <h2>sort</h2>
+        <button id="sort-name-btn" aria-label="sort to do's by name.">by Name</button>
 
-      <button id="sort-name-btn" aria-label="sort to do's by name.">by Name</button>
+        <button id="sort-deadline-btn" aria-label="sort to do's by deadline.">by Deadline</button>
 
-      <button id="sort-deadline-btn" aria-label="sort to do's by deadline.">by Deadline</button>
+        <button id="sort-date-added-btn" aria-label="sort to do's by date added.">by Date added</button>
 
-      <button id="sort-date-added-btn" aria-label="sort to do's by date added.">by Date added</button>
+      </section>
 
-    </section>
+      <!---------------------ADD ITEM MENU---------------------------->
+      <section class="add-item-container">
 
-     <!---------------------ADD ITEM MENU---------------------------->
-    <section class="add-item-container">
+        <form onsubmit="return false;" novalidate>
+          <label>
+            title <span class="input-error"></span>
+            <input id="title-input" type="text" placeholder="ex. Eat Icecream">
+          </label>
+          <label>
+            category <span class="input-error"></span>
+            <input list="browse" id="category-input" type="text" placeholder="write a new one or choose from list">
+            <datalist id="browse">
+              <option value="Home">
+              <option value="Work">
+            </datalist>
+          </label>
+          <label>
+            deadline date <span class="input-error"></span>
+            <input id="date-input" type="date"
+          min="2022-12-10" max="2030-12-31" required>
+          </label>
+          <button id="add-item-btn" aria-label="for submitting form." disabled>add toDo</button>
+        </form>
+      </section>
 
-      <form onsubmit="return false;" novalidate>
-        <label>
-          title <span class="input-error"></span>
-          <input id="title-input" type="text" placeholder="ex. Eat Icecream">
-        </label>
-        <label>
-          category <span class="input-error"></span>
-          <input list="browse" id="category-input" type="text" placeholder="write a new one or choose from list">
-          <datalist id="browse">
-            <option value="Home">
-            <option value="Work">
-          </datalist>
-        </label>
-        <label>
-          deadline date <span class="input-error"></span>
-          <input id="date-input" type="date"
-        min="2022-12-10" max="2030-12-31" required>
-        </label>
-        <button id="add-item-btn" aria-label="for submitting form." disabled>add toDo</button>
-      </form>
-    </section>
+      <!-----------------------toDo LIST------------------------------>
+      <main id="todo-items-container">
+      </main>
 
-     <!-----------------------toDo LIST------------------------------>
-    <main id="todo-items-container">
-    </main>
+    </div>
 
     <!-- TODO
     - Validera HTML (kopiera den renderade HTML-koden): https://validator.w3.org/#validate_by_input

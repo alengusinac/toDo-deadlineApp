@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import './style/style.scss';
+import './style/desktop.scss';
 
 /* **********************VARIABLES********************** */
 
