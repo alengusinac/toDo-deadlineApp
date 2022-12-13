@@ -21,7 +21,7 @@ type Item = {
 };
 
 // toDo ITEM LIST
-let itemList: object[] = [];
+let itemList: Item[] = [];
 
 const todoItemsContainer = document.querySelector('#todo-items-container') as HTMLDivElement;
 
@@ -244,7 +244,7 @@ function saveData(): void {
 
 function loadData(): void {
   if (localStorage.getItem('data') !== null) {
-    itemList = JSON.parse(localStorage.getItem('data'));
+    itemList = JSON.parse(localStorage.getItem('data')!) as [];
   }
 }
 /* **********************LOGIC********************** */
