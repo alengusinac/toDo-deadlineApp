@@ -63,6 +63,7 @@ function openContainer(e: MouseEvent): void {
   }
 }
 
+// Form validation
 function validateForm(e: Event): void {
   const targetInput = e.currentTarget as HTMLInputElement;
   const targetInputValue = targetInput.value;
@@ -132,6 +133,7 @@ function validateForm(e: Event): void {
   }
 }
 
+// Chnaging the global sortBy variable
 function changeSortItemList(e: Event): void {
   const target = e.currentTarget as HTMLButtonElement;
   const targetID = target.id;
@@ -163,6 +165,7 @@ function changeSortItemList(e: Event): void {
   sortContainer?.classList.remove('open');
 }
 
+// Sorting itemList between name, deadline or date added to list
 function sortItemList(): void {
   let sortedItemList = [];
   console.log(sortBy);
@@ -208,13 +211,7 @@ function sortItemList(): void {
   }
 }
 
-function checkIfChecked(item: Item): string {
-  if (item.isChecked) {
-    return ' checked';
-  }
-  return '';
-}
-
+// Calculating deadline in days
 function calculateDeadline(item: Item): number {
   const datefromJSON = new Date(item.deadline!);
   const itemDeadlineDate: number = datefromJSON.getTime();
@@ -225,6 +222,7 @@ function calculateDeadline(item: Item): number {
   return daysDifference;
 }
 
+// Marks a item with yellow color if deadline equal or under 5 days
 function checkIfCloseDeadline(deadlineInDays: number): string {
   if (deadlineInDays <= 5) {
     return ' close-deadline';
@@ -235,6 +233,7 @@ function checkIfCloseDeadline(deadlineInDays: number): string {
   return '';
 }
 
+// Rendering itemList to main
 function renderList(): void {
   todoItemsContainer.innerHTML = '';
 
@@ -271,6 +270,7 @@ function renderList(): void {
   saveData();
 }
 
+// Removing item from itemList
 function removeItem(e: Event): void {
   const button = e.currentTarget as HTMLSpanElement;
   const buttonID = Number(button.id);
@@ -279,6 +279,7 @@ function removeItem(e: Event): void {
   renderList();
 }
 
+// Marking a toDo as done
 function checkItem(e: Event): void {
   const button = e.currentTarget as HTMLSpanElement;
   const buttonID = Number(button.id);
@@ -293,6 +294,15 @@ function checkItem(e: Event): void {
   renderList();
 }
 
+// Visually marking an checked item
+function checkIfChecked(item: Item): string {
+  if (item.isChecked) {
+    return ' checked';
+  }
+  return '';
+}
+
+// Add eventlisteners after rendering items
 function addEventListenersToItemBtns(): void {
   const removeItemBtns = document.querySelectorAll('.remove-item-btn') as NodeList;
   const checkItemBtns = document.querySelectorAll('.check-item-btn') as NodeList;
@@ -308,6 +318,7 @@ function addEventListenersToItemBtns(): void {
   }
 }
 
+// Clear form-inputs
 function clearForm(): void {
   addContainer?.classList.remove('open');
   addItemBtn?.setAttribute('disabled', 'true');
@@ -316,6 +327,7 @@ function clearForm(): void {
   dateInput.value = '';
 }
 
+// Add toDo item from form to itemList
 function addItemToList(): void {
   const titleValue = titleInput?.value;
   const categoryValue = categoryInput?.value;
@@ -335,10 +347,12 @@ function addItemToList(): void {
   renderList();
 }
 
+// Save itemList to localStorage
 function saveData(): void {
   localStorage.setItem('data', JSON.stringify(itemList));
 }
 
+// Load itemList from localStorage
 function loadData(): void {
   if (localStorage.getItem('data') !== null) {
     itemList = JSON.parse(localStorage.getItem('data')!) as [];
