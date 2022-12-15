@@ -163,9 +163,17 @@ function changeSortItemList(e: Event): void {
   sortContainer?.classList.remove('open');
 }
 
-function sortItemList() {
+function sortItemList(): void {
   let sortedItemList = [];
   console.log(sortBy);
+
+  if (sortBy === 'name') {
+    sortedItemList = itemList.sort((a, b) => ((a.title! < b.title!) ? -1 : 1));
+  }
+
+  if (sortBy === 'nameReversed') {
+    sortedItemList = itemList.sort((a, b) => ((a.title! > b.title!) ? -1 : 1));
+  }
 
   if (sortBy === 'deadline') {
     sortedItemList = itemList.sort((a, b) => {
@@ -179,6 +187,22 @@ function sortItemList() {
     sortedItemList = itemList.sort((a, b) => {
       const dateA = new Date(a.deadline!);
       const dateB = new Date(b.deadline!);
+      return dateB.valueOf() - dateA.valueOf();
+    });
+  }
+
+  if (sortBy === 'dateAdded') {
+    sortedItemList = itemList.sort((a, b) => {
+      const dateA = new Date(a.dateAddedToList!);
+      const dateB = new Date(b.dateAddedToList!);
+      return dateA.valueOf() - dateB.valueOf();
+    });
+  }
+
+  if (sortBy === 'dateAddedReversed') {
+    sortedItemList = itemList.sort((a, b) => {
+      const dateA = new Date(a.dateAddedToList!);
+      const dateB = new Date(b.dateAddedToList!);
       return dateB.valueOf() - dateA.valueOf();
     });
   }
