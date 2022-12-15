@@ -224,11 +224,12 @@ function calculateDeadline(item: Item): number {
 
 // Marks a item with yellow color if deadline equal or under 5 days
 function checkIfCloseDeadline(deadlineInDays: number): string {
-  if (deadlineInDays <= 5) {
+  console.log(deadlineInDays);
+  if (deadlineInDays <= 5 && deadlineInDays > 0) {
     return ' close-deadline';
   }
   if (deadlineInDays <= 0) {
-    return 'after-deadline';
+    return ' after-deadline';
   }
   return '';
 }
