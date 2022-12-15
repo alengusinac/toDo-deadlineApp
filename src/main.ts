@@ -13,19 +13,6 @@ const addBtn = document.querySelector('#add-btn') as HTMLButtonElement;
 const sortContainer = document.querySelector('.sort-container') as HTMLDivElement;
 const addContainer = document.querySelector('.add-item-container') as HTMLDivElement;
 
-type Item = {
-  title?: string,
-  category?: string,
-  deadline?: Date,
-  dateAddedToList?: Date,
-  isChecked?: boolean,
-};
-
-// toDo ITEM LIST
-let itemList: Item[] = [];
-
-const todoItemsContainer = document.querySelector('#todo-items-container') as HTMLDivElement;
-
 // ADD ITEM FORM
 const titleInput = document.querySelector('#title-input') as HTMLInputElement;
 const categoryInput = document.querySelector('#category-input') as HTMLInputElement;
@@ -35,6 +22,26 @@ const addItemBtn = document.querySelector('#add-item-btn') as HTMLButtonElement;
 let validTitleInput = false;
 let validCategoryInput = false;
 let validDateInput = false;
+
+// SORT ITEM BUTTONS
+const sortByNameBtn = document.querySelector('#sort-name-btn') as HTMLButtonElement;
+const sortByDeadlineBtn = document.querySelector('#sort-deadline-btn') as HTMLButtonElement;
+const sortByDateAddedBtn = document.querySelector('#sort-date-added-btn') as HTMLButtonElement;
+
+let sortBy = 'deadline';
+
+// toDo ITEM LIST
+type Item = {
+  title?: string,
+  category?: string,
+  deadline?: string,
+  dateAddedToList?: string,
+  isChecked?: boolean,
+};
+
+let itemList: Item[] = [];
+
+const todoItemsContainer = document.querySelector('#todo-items-container') as HTMLDivElement;
 
 /* **********************FUNCTIONS********************** */
 
@@ -125,6 +132,59 @@ function validateForm(e: Event): void {
   }
 }
 
+function changeSortItemList(e: Event): void {
+  const target = e.currentTarget as HTMLButtonElement;
+  const targetID = target.id;
+
+  if (targetID === 'sort-name-btn') {
+    if (sortBy === 'name') {
+      sortBy = 'nameReversed';
+    } else {
+      sortBy = 'name';
+    }
+  }
+
+  if (targetID === 'sort-deadline-btn') {
+    if (sortBy === 'deadline') {
+      sortBy = 'deadlineReversed';
+    } else {
+      sortBy = 'deadline';
+    }
+  }
+
+  if (targetID === 'sort-date-added-btn') {
+    if (sortBy === 'dateAdded') {
+      sortBy = 'dateAddedReversed';
+    } else {
+      sortBy = 'dateAdded';
+    }
+  }
+  renderList();
+}
+
+function sortItemList() {
+  let sortedItemList = [];
+  console.log(sortBy);
+
+  if (sortBy === 'deadline') {
+    sortedItemList = itemList.sort((a, b) => {
+      const dateA = new Date(a.deadline!);
+      const dateB = new Date(b.deadline!);
+      return dateA - dateB;
+    });
+  }
+
+  if (sortBy === 'deadlineReversed') {
+    sortedItemList = itemList.sort((a, b) => {
+      const dateA = new Date(a.deadline);
+      const dateB = new Date(b.deadline);
+      return dateB - dateA;
+    });
+  }
+
+  return '';
+}
+
 function checkIfChecked(item: Item): string {
   if (item.isChecked) {
     return ' checked';
@@ -154,6 +214,8 @@ function checkIfCloseDeadline(deadlineInDays: number): string {
 
 function renderList(): void {
   todoItemsContainer.innerHTML = '';
+
+  sortItemList();
 
   for (let i = 0; i < itemList.length; i++) {
     const item = itemList[i];
@@ -266,12 +328,16 @@ sortBtn?.addEventListener('click', openContainer);
 categoriesBtn?.addEventListener('click', openContainer);
 addBtn?.addEventListener('click', openContainer);
 
-// ADD ITEM EVENTLISTENER
+// ADD ITEM EVENTLISTENERS
 titleInput?.addEventListener('blur', validateForm);
 categoryInput?.addEventListener('blur', validateForm);
 dateInput?.addEventListener('change', validateForm);
 addItemBtn?.addEventListener('click', addItemToList);
 
+// SORT ITEM EVENTLISTENERS
+sortByNameBtn.addEventListener('click', changeSortItemList);
+sortByDeadlineBtn.addEventListener('click', changeSortItemList);
+sortByDateAddedBtn.addEventListener('click', changeSortItemList);
+
 loadData();
 renderList();
-console.log(itemList);
