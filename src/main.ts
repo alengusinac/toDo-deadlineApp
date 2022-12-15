@@ -34,8 +34,8 @@ let sortBy = 'deadline';
 type Item = {
   title?: string,
   category?: string,
-  deadline?: string,
-  dateAddedToList?: string,
+  deadline?: Date,
+  dateAddedToList?: Date,
   isChecked?: boolean,
 };
 
@@ -160,6 +160,7 @@ function changeSortItemList(e: Event): void {
     }
   }
   renderList();
+  sortContainer?.classList.remove('open');
 }
 
 function sortItemList() {
@@ -170,19 +171,17 @@ function sortItemList() {
     sortedItemList = itemList.sort((a, b) => {
       const dateA = new Date(a.deadline!);
       const dateB = new Date(b.deadline!);
-      return dateA - dateB;
+      return dateA.valueOf() - dateB.valueOf();
     });
   }
 
   if (sortBy === 'deadlineReversed') {
     sortedItemList = itemList.sort((a, b) => {
-      const dateA = new Date(a.deadline);
-      const dateB = new Date(b.deadline);
-      return dateB - dateA;
+      const dateA = new Date(a.deadline!);
+      const dateB = new Date(b.deadline!);
+      return dateB.valueOf() - dateA.valueOf();
     });
   }
-
-  return '';
 }
 
 function checkIfChecked(item: Item): string {
