@@ -235,11 +235,11 @@ header {
     }
 
     p {
-      color: $toDoLightGrey;
+      color: $toDoLightGrey!important;
     }
 
     .time-left span:nth-child(2) {
-      color: $toDoLightGrey;
+      color: $toDoLightGrey!important;
     }
   }
 
