@@ -162,13 +162,14 @@ header {
 /* ***********************toDO LIST******************* */
 
 .todo-item {
-  position: relative;
+  position: relative; 
   height: 80px;
   width: 100%;
   display: flex;
   align-items: center;
   border-bottom: 1px solid $toDoLightGrey;
   padding: 0 5px;
+  transition: height 0.3s ease-in-out;
 
   button {
     height: 50px;
@@ -189,7 +190,7 @@ header {
       }
     }
 
-    &:nth-child(4) {
+    &:nth-child(6) {
       color: $toDoRed;
 
       &:hover {
@@ -260,6 +261,43 @@ header {
 
     .time-left span:nth-child(2) {
       color: $toDoRed;
+    }
+  }
+
+  .deadline-date, .date-added-date {
+    position: absolute;
+    color: $textColor;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .deadline-date {
+    top: -25px;
+  }
+
+  .date-added-date {
+    bottom: -25px;
+  }
+
+  &.open {
+    height: 160px;
+
+    .deadline-date, .date-added-date {
+      position: absolute;
+      color: $textColor;
+      left: 50px;
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .deadline-date {
+      top: 25px;
+    }
+
+    .date-added-date {
+      bottom: 25px;
     }
   }
 }

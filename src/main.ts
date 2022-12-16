@@ -89,7 +89,6 @@ function validateForm(e: Event): void {
       validDateInput = true;
       errorMsgContainer.innerHTML = '';
     } else if (inputYear === todaysYear && inputMonth > todaysMonth) {
-      console.log('HEY!');
       validDateInput = true;
       errorMsgContainer.innerHTML = '';
     } else if (inputYear === todaysYear && inputMonth === todaysMonth && inputDate >= todaysDate) {
@@ -168,7 +167,6 @@ function changeSortItemList(e: Event): void {
 // Sorting itemList between name, deadline or date added to list
 function sortItemList(): void {
   let sortedItemList = [];
-  console.log(sortBy);
 
   if (sortBy === 'name') {
     sortedItemList = itemList.sort((a, b) => ((a.title! < b.title!) ? -1 : 1));
@@ -212,23 +210,37 @@ function sortItemList(): void {
 }
 
 // Calculating deadline in days
-function calculateDeadline(item: Item): number {
-  const datefromJSON = new Date(item.deadline!);
-  const itemDeadlineDate: number = datefromJSON.getTime();
+function calculateDeadline(item: Item): string[] {
+  const dateArray = [];
+  const deadlineDate = new Date(item.deadline!);
+  const dateAddedDate = new Date(item.dateAddedToList!);
+
+  // Calculate days to deadline, push to dateArray
+  const itemDeadlineDate: number = deadlineDate.getTime();
   const todaysDate: number = new Date().getTime();
   const difference = itemDeadlineDate - todaysDate;
   const daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
+  dateArray.push(String(daysDifference));
 
-  return daysDifference;
+  // Get full date YY-MM-DD from item deadline, push to dateArray
+  const displayDeadlineDate = `${deadlineDate.getFullYear()}-${deadlineDate.getMonth() + 1}-${deadlineDate.getDate()}`;
+  dateArray.push(displayDeadlineDate);
+
+  // Get full date YY-MM-DD from item dateAdded, push to dateArray
+  // eslint-disable-next-line max-len
+  const displayDateAddedDate = `${dateAddedDate.getFullYear()}-${dateAddedDate.getMonth() + 1}-${dateAddedDate.getDate()}`;
+  dateArray.push(displayDateAddedDate);
+
+  return dateArray;
 }
 
 // Marks a item with yellow color if deadline equal or under 5 days
-function checkIfCloseDeadline(deadlineInDays: number): string {
-  console.log(deadlineInDays);
-  if (deadlineInDays <= 5 && deadlineInDays > 0) {
+function checkIfCloseDeadline(deadlineInDays: string): string {
+  const deadlineNumber = Number(deadlineInDays);
+  if (deadlineNumber <= 5 && deadlineNumber > 0) {
     return ' close-deadline';
   }
-  if (deadlineInDays <= 0) {
+  if (deadlineNumber <= 0) {
     return ' after-deadline';
   }
   return '';
@@ -243,11 +255,10 @@ function renderList(): void {
   for (let i = 0; i < itemList.length; i++) {
     const item = itemList[i];
     const isChecked = checkIfChecked(item);
-    const deadlineInDays = calculateDeadline(item);
-    const closeDeadline = checkIfCloseDeadline(deadlineInDays);
-
+    const deadline = calculateDeadline(item);
+    const closeDeadline = checkIfCloseDeadline(deadline[0]);
     todoItemsContainer.innerHTML += `
-    <article class="todo-item open${isChecked}${closeDeadline}">
+    <article id="${i}" class="todo-item${isChecked}${closeDeadline}">
 
       <button>
         <span id="${i}" class="material-symbols-outlined check-item-btn">task_alt</span>
@@ -255,9 +266,12 @@ function renderList(): void {
 
       <p>${item.title!}</p>
 
+      <p class="deadline-date">Deadline: ${deadline[1]}</p>
+      <p class="date-added-date">Date added: ${deadline[2]}</p>
+
       <div class="time-left">
         <span class="material-symbols-outlined">hourglass_empty</span>
-        <span>${deadlineInDays}days</span>
+        <span>${deadline[0]}days</span>
       </div>
 
       <button>
@@ -269,6 +283,21 @@ function renderList(): void {
   }
   addEventListenersToItemBtns();
   saveData();
+}
+
+function openItemDetails(e: Event): void {
+  const target = e.currentTarget as HTMLDivElement;
+  const item = document.querySelector('.todo-item.open') as HTMLDivElement;
+
+  if (item !== null) {
+    if (target.id === item.id) {
+      target.classList.toggle('open');
+      return;
+    }
+    item.classList.remove('open');
+    target.classList.add('open');
+  }
+  target.classList.add('open');
 }
 
 // Removing item from itemList
@@ -305,8 +334,14 @@ function checkIfChecked(item: Item): string {
 
 // Add eventlisteners after rendering items
 function addEventListenersToItemBtns(): void {
+  const items = document.querySelectorAll('.todo-item') as NodeList;
   const removeItemBtns = document.querySelectorAll('.remove-item-btn') as NodeList;
   const checkItemBtns = document.querySelectorAll('.check-item-btn') as NodeList;
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    item.addEventListener('click', openItemDetails);
+  }
 
   for (let i = 0; i < removeItemBtns.length; i++) {
     const removeItemBtn = removeItemBtns[i];
