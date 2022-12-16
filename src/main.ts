@@ -166,18 +166,16 @@ function changeSortItemList(e: Event): void {
 
 // Sorting itemList between name, deadline or date added to list
 function sortItemList(): void {
-  let sortedItemList = [];
-
   if (sortBy === 'name') {
-    sortedItemList = itemList.sort((a, b) => ((a.title! < b.title!) ? -1 : 1));
+    itemList.sort((a, b) => ((a.title! < b.title!) ? -1 : 1));
   }
 
   if (sortBy === 'nameReversed') {
-    sortedItemList = itemList.sort((a, b) => ((a.title! > b.title!) ? -1 : 1));
+    itemList.sort((a, b) => ((a.title! > b.title!) ? -1 : 1));
   }
 
   if (sortBy === 'deadline') {
-    sortedItemList = itemList.sort((a, b) => {
+    itemList.sort((a, b) => {
       const dateA = new Date(a.deadline!);
       const dateB = new Date(b.deadline!);
       return dateA.valueOf() - dateB.valueOf();
@@ -185,7 +183,7 @@ function sortItemList(): void {
   }
 
   if (sortBy === 'deadlineReversed') {
-    sortedItemList = itemList.sort((a, b) => {
+    itemList.sort((a, b) => {
       const dateA = new Date(a.deadline!);
       const dateB = new Date(b.deadline!);
       return dateB.valueOf() - dateA.valueOf();
@@ -193,7 +191,7 @@ function sortItemList(): void {
   }
 
   if (sortBy === 'dateAdded') {
-    sortedItemList = itemList.sort((a, b) => {
+    itemList.sort((a, b) => {
       const dateA = new Date(a.dateAddedToList!);
       const dateB = new Date(b.dateAddedToList!);
       return dateA.valueOf() - dateB.valueOf();
@@ -201,7 +199,7 @@ function sortItemList(): void {
   }
 
   if (sortBy === 'dateAddedReversed') {
-    sortedItemList = itemList.sort((a, b) => {
+    itemList.sort((a, b) => {
       const dateA = new Date(a.dateAddedToList!);
       const dateB = new Date(b.dateAddedToList!);
       return dateB.valueOf() - dateA.valueOf();
