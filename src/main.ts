@@ -11,6 +11,7 @@ const addBtn = document.querySelector('#add-btn') as HTMLButtonElement;
 
 // HEADER CONTAINERS
 const sortContainer = document.querySelector('.sort-container') as HTMLDivElement;
+const categoriesContainer = document.querySelector('.categories-container') as HTMLDivElement;
 const addContainer = document.querySelector('.add-item-container') as HTMLDivElement;
 
 // ADD ITEM FORM
@@ -45,7 +46,7 @@ const todoItemsContainer = document.querySelector('#todo-items-container') as HT
 
 /* **********************FUNCTIONS********************** */
 
-// Opening sort and add container
+// Opening sort, categories and add container
 function openContainer(e: MouseEvent): void {
   const target = e.currentTarget as HTMLButtonElement;
   const targetID = target.id;
@@ -55,10 +56,24 @@ function openContainer(e: MouseEvent): void {
     if (addContainer?.classList.contains('open')) {
       addContainer?.classList.remove('open');
     }
+    if (categoriesContainer?.classList.contains('open')) {
+      categoriesContainer?.classList.remove('open');
+    }
   } else if (targetID === 'add-btn') {
     addContainer?.classList.toggle('open');
     if (sortContainer?.classList.contains('open')) {
       sortContainer?.classList.remove('open');
+    }
+    if (categoriesContainer?.classList.contains('open')) {
+      categoriesContainer?.classList.remove('open');
+    }
+  } else if (targetID === 'categories-btn') {
+    categoriesContainer?.classList.toggle('open');
+    if (sortContainer?.classList.contains('open')) {
+      sortContainer?.classList.remove('open');
+    }
+    if (addContainer?.classList.contains('open')) {
+      addContainer?.classList.remove('open');
     }
   }
 }
@@ -244,6 +259,30 @@ function checkIfCloseDeadline(deadlineInDays: string): string {
   return '';
 }
 
+function buildCategoryList() {
+  const categoriesList = [];
+  const categoriesListElement = categoriesContainer.querySelector('ul') as HTMLUListElement;
+  const browseCategoryElement = document.querySelector('#browse') as HTMLDataListElement;
+  categoriesListElement.innerHTML = '<li>> all categories <</li>';
+  browseCategoryElement.innerHTML = '';
+
+  for (let i = 0; i < itemList.length; i++) {
+    const item = itemList[i];
+
+    categoriesList.push(item.category);
+  }
+
+  categoriesList.sort((a, b) => ((a! < b!) ? -1 : 1));
+  const categoriesListNoDuplicates = [...new Set(categoriesList)];
+
+  for (let i = 0; i < categoriesListNoDuplicates.length; i++) {
+    const category = categoriesListNoDuplicates[i] as string;
+    categoriesListElement.innerHTML += `<li>> ${category} <</li>`;
+
+    browseCategoryElement.innerHTML += `<option value="${category}">`;
+  }
+}
+
 // Rendering itemList to main
 function renderList(): void {
   todoItemsContainer.innerHTML = '';
@@ -269,7 +308,7 @@ function renderList(): void {
 
       <div class="time-left">
         <span class="material-symbols-outlined">hourglass_empty</span>
-        <span>${deadline[0]}days</span>
+        <span>${deadline[0]} days</span>
       </div>
 
       <button>
@@ -279,6 +318,7 @@ function renderList(): void {
     </article>
     `;
   }
+  buildCategoryList();
   addEventListenersToItemBtns();
   saveData();
 }

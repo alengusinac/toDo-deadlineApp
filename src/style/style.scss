@@ -22,7 +22,10 @@ header {
   height: 80px;
   width: 100%;
   border-bottom: 3px solid $toDoYellow;
+  background-color: $backgroundColor;
+  position: relative;
   display: flex;
+  z-index: 10;
 
   button {
     min-width: 75px;
@@ -77,7 +80,7 @@ header {
 
 /* ***********************SORT AND ADD******************* */
 
-.sort-container, .add-item-container {
+.sort-container, .categories-container, .add-item-container {
   position: absolute;
   min-height: calc(100vh - 80px);
   width: 100%;
@@ -109,6 +112,10 @@ header {
       color: $textColor;
     }
   }
+
+  h2 {
+    color: $toDoYellow;
+  }
 }
 
 /* ***********************SORT******************* */
@@ -122,10 +129,32 @@ header {
   &.open {
     left: 0;
   }
+}
 
-  h2 {
-    color: $toDoYellow;
+/* ***********************CATEGORIES******************* */
+.categories-container {
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  top: -100%;
+  transition: top 0.3s ease-in-out;
+
+  &.open {
+    top: 80px;
   }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    list-style-type: none;
+
+    li {
+      color: $toDoYellow;
+    }
+  }
+
 }
 
 /* ***********************ADD******************* */
