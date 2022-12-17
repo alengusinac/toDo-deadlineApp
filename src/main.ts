@@ -259,6 +259,14 @@ function checkIfCloseDeadline(deadlineInDays: string): string {
   return '';
 }
 
+function deadlineToString(deadline: string) {
+  const deadlineNumber = Number(deadline);
+  if (deadlineNumber === 1 || deadlineNumber === -1) {
+    return `${deadlineNumber} day`;
+  }
+  return `${deadlineNumber} days`;
+}
+
 function buildCategoryList() {
   const categoriesList = [];
   const categoriesListElement = categoriesContainer.querySelector('ul') as HTMLUListElement;
@@ -294,6 +302,8 @@ function renderList(): void {
     const isChecked = checkIfChecked(item);
     const deadline = calculateDeadline(item);
     const closeDeadline = checkIfCloseDeadline(deadline[0]);
+    const renderDeadline = deadlineToString(deadline[0]);
+
     todoItemsContainer.innerHTML += `
     <article id="${i}" class="todo-item${isChecked}${closeDeadline}">
 
@@ -308,7 +318,7 @@ function renderList(): void {
 
       <div class="time-left">
         <span class="material-symbols-outlined">hourglass_empty</span>
-        <span>${deadline[0]} days</span>
+        <span>${renderDeadline}</span>
       </div>
 
       <button>
