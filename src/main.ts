@@ -243,7 +243,6 @@ function calculateDeadline(this: any, item: Item): string[] {
   dateArray.push(displayDeadlineDate);
 
   // Get full date YY-MM-DD from item dateAdded, push to dateArray
-  // eslint-disable-next-line max-len
   const dateAddedDateMonth = (`0${dateAddedDate.getMonth() + 1}`).slice(-2);
   const dateAddedDateDate = (`0${deadlineDate.getDate()}`).slice(-2);
 
