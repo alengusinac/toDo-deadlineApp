@@ -276,7 +276,7 @@ function buildCategoryList() {
   const categoriesList = [];
   const categoriesListElement = categoriesContainer.querySelector('ul') as HTMLUListElement;
   const browseCategoryElement = document.querySelector('#browse') as HTMLDataListElement;
-  categoriesListElement.innerHTML = '<li>> all categories <</li>';
+  categoriesListElement.innerHTML = '<li>> <button>all categories</button> <</li>';
   browseCategoryElement.innerHTML = '';
 
   for (let i = 0; i < itemList.length; i++) {
@@ -290,7 +290,7 @@ function buildCategoryList() {
 
   for (let i = 0; i < categoriesListNoDuplicates.length; i++) {
     const category = categoriesListNoDuplicates[i] as string;
-    categoriesListElement.innerHTML += `<li>> ${category} <</li>`;
+    categoriesListElement.innerHTML += `<li>> <button>${category}</button> <</li>`;
 
     browseCategoryElement.innerHTML += `<option value="${category}">`;
   }

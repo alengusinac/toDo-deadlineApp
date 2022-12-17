@@ -23,7 +23,7 @@ $toDoGrey: #222;
     overflow: hidden;
   }
 
-  .sort-container, .add-item-container {
+  .sort-container, .categories-container, .add-item-container {
     background-color: $backgroundColor;
     min-height: calc(100vh - 140px);
   }

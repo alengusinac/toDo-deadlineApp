@@ -17,6 +17,10 @@ body {
   overflow-x: hidden;
 }
 
+button {
+  cursor: pointer;
+}
+
 /* ***********************HEADER******************* */
 header {
   height: 80px;
@@ -78,7 +82,7 @@ header {
   }
 }
 
-/* ***********************SORT AND ADD******************* */
+/* ***********************SORT, CATEGORIES AND ADD******************* */
 
 .sort-container, .categories-container, .add-item-container {
   position: absolute;
@@ -89,6 +93,13 @@ header {
   padding: 10px 0;
   z-index: 5;
 
+  h2 {
+    color: $toDoYellow;
+  }
+}
+
+/* ***********************SORT AND ADD******************* */
+.sort-container, .add-item-container {
   button {
     height: 40px;
     width: 200px;
@@ -111,10 +122,6 @@ header {
       border-color: $toDoLightGrey;
       color: $textColor;
     }
-  }
-
-  h2 {
-    color: $toDoYellow;
   }
 }
 
@@ -151,7 +158,23 @@ header {
     list-style-type: none;
 
     li {
-      color: $toDoYellow;
+      color: $textColor;
+      height: 45px;
+
+      button {
+        color: $toDoYellow;
+        height: 45px;
+        border: none;
+        background-color: transparent;
+
+        &:hover {
+          color: $textColor;
+        }
+
+        &:active {
+          color: $toDoYellow;
+        }
+      }
     }
   }
 
