@@ -334,7 +334,7 @@ function renderList(): void {
     `;
   }
   buildCategoryList();
-  addEventListenersToItemBtns();
+  addEventListeners();
   saveData();
 }
 
@@ -386,7 +386,7 @@ function checkIfChecked(item: Item): string {
 }
 
 // Add eventlisteners after rendering items
-function addEventListenersToItemBtns(): void {
+function addEventListeners(): void {
   const items = document.querySelectorAll('.todo-item') as NodeList;
   const removeItemBtns = document.querySelectorAll('.remove-item-btn') as NodeList;
   const checkItemBtns = document.querySelectorAll('.check-item-btn') as NodeList;
