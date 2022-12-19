@@ -317,11 +317,19 @@ function filterCategories() {
   filteredList = itemList.filter((item) => item.category === categoryFilter);
 }
 
+function moveCheckedToEnd() {
+  for (let i = 0; i < itemList.length; i++) {
+    const checkedItemIndex = itemList.findIndex((item) => item.isChecked === true);
+    itemList.push(itemList.splice(checkedItemIndex, 1)[0]);
+  }
+}
+
 // Rendering itemList to main
 function renderList(): void {
   todoItemsContainer.innerHTML = '';
 
   sortItemList();
+  moveCheckedToEnd();
   filterCategories();
 
   for (let i = 0; i < filteredList.length; i++) {
@@ -396,7 +404,7 @@ function checkItem(e: Event): void {
   } else {
     item.isChecked = true;
   }
-
+  console.log(item.isChecked);
   renderList();
 }
 
