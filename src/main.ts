@@ -186,7 +186,7 @@ function sortItemList(): void {
   }
 
   if (sortBy === 'nameReversed') {
-    itemList.sort((a, b) => ((a.title! > b.title!) ? -1 : 1));
+    itemList.sort((a, b) => ((b.title! < a.title!) ? -1 : 1));
   }
 
   if (sortBy === 'deadline') {
