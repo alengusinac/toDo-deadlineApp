@@ -24,12 +24,15 @@ let validTitleInput = false;
 let validCategoryInput = false;
 let validDateInput = false;
 
-// SORT ITEM BUTTONS
+// SORT ITEMS
 const sortByNameBtn = document.querySelector('#sort-name-btn') as HTMLButtonElement;
 const sortByDeadlineBtn = document.querySelector('#sort-deadline-btn') as HTMLButtonElement;
 const sortByDateAddedBtn = document.querySelector('#sort-date-added-btn') as HTMLButtonElement;
 
 let sortBy = 'deadline';
+
+// CATEGORIES
+let categoryFilter = 'all categories';
 
 // toDo ITEM LIST
 type Item = {
@@ -41,6 +44,7 @@ type Item = {
 };
 
 let itemList: Item[] = [];
+let filteredList: Item[] = [];
 
 const todoItemsContainer = document.querySelector('#todo-items-container') as HTMLDivElement;
 
@@ -276,7 +280,7 @@ function buildCategoryList() {
   const categoriesList = [];
   const categoriesListElement = categoriesContainer.querySelector('ul') as HTMLUListElement;
   const browseCategoryElement = document.querySelector('#browse') as HTMLDataListElement;
-  categoriesListElement.innerHTML = '<li>> <button>all categories</button> <</li>';
+  categoriesListElement.innerHTML = '<li>> <button class="category-btn">all categories</button> <</li>';
   browseCategoryElement.innerHTML = '';
 
   for (let i = 0; i < itemList.length; i++) {
@@ -290,10 +294,27 @@ function buildCategoryList() {
 
   for (let i = 0; i < categoriesListNoDuplicates.length; i++) {
     const category = categoriesListNoDuplicates[i] as string;
-    categoriesListElement.innerHTML += `<li>> <button>${category}</button> <</li>`;
+    categoriesListElement.innerHTML += `<li>> <button class="category-btn">${category}</button> <</li>`;
 
     browseCategoryElement.innerHTML += `<option value="${category}">`;
   }
+}
+
+function changeFilterCategories(e:Event): void {
+  const target = e.currentTarget as HTMLButtonElement;
+  categoryFilter = target.innerText;
+
+  renderList();
+  categoriesContainer?.classList.remove('open');
+}
+
+function filterCategories() {
+  if (categoryFilter === 'all categories') {
+    filteredList = itemList;
+    return;
+  }
+
+  filteredList = itemList.filter((item) => item.category === categoryFilter);
 }
 
 // Rendering itemList to main
@@ -301,9 +322,10 @@ function renderList(): void {
   todoItemsContainer.innerHTML = '';
 
   sortItemList();
+  filterCategories();
 
-  for (let i = 0; i < itemList.length; i++) {
-    const item = itemList[i];
+  for (let i = 0; i < filteredList.length; i++) {
+    const item = filteredList[i];
     const isChecked = checkIfChecked(item);
     const deadline = calculateDeadline(item);
     const closeDeadline = checkIfCloseDeadline(deadline[0]);
@@ -333,6 +355,7 @@ function renderList(): void {
     </article>
     `;
   }
+
   buildCategoryList();
   addEventListeners();
   saveData();
@@ -390,6 +413,7 @@ function addEventListeners(): void {
   const items = document.querySelectorAll('.todo-item') as NodeList;
   const removeItemBtns = document.querySelectorAll('.remove-item-btn') as NodeList;
   const checkItemBtns = document.querySelectorAll('.check-item-btn') as NodeList;
+  const categoriesBtns = document.querySelectorAll('.category-btn') as NodeList;
 
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
@@ -404,6 +428,11 @@ function addEventListeners(): void {
   for (let i = 0; i < checkItemBtns.length; i++) {
     const removeItemBtn = checkItemBtns[i];
     removeItemBtn.addEventListener('click', checkItem);
+  }
+
+  for (let i = 0; i < categoriesBtns.length; i++) {
+    const categoryBtn = categoriesBtns[i];
+    categoryBtn.addEventListener('click', changeFilterCategories);
   }
 }
 
