@@ -309,12 +309,15 @@ function changeFilterCategories(e:Event): void {
 }
 
 function filterCategories() {
+  const categoryTitleElm = document.querySelector('#category-title') as HTMLSpanElement;
   if (categoryFilter === 'all categories') {
     filteredList = itemList;
+    categoryTitleElm.innerHTML = 'all categories';
     return;
   }
 
   filteredList = itemList.filter((item) => item.category === categoryFilter);
+  categoryTitleElm.innerHTML = categoryFilter;
 }
 
 function moveCheckedToEnd() {
