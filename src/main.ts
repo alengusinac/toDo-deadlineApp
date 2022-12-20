@@ -227,31 +227,33 @@ function sortItemList(): void {
 }
 
 // Calculating deadline in days
-function calculateDeadline(this: any, item: Item): string[] {
+function calculateDeadline(item: Item): string[] {
   const dateArray = [];
-  const deadlineDate = new Date(item.deadline!);
-  const dateAddedDate = new Date(item.dateAddedToList!);
+  if (item.deadline && item.dateAddedToList) {
+    const deadlineDate = new Date(item.deadline);
+    const dateAddedDate = new Date(item.dateAddedToList);
 
-  // Calculate days to deadline, push to dateArray
-  const itemDeadlineDate: number = deadlineDate.getTime();
-  const todaysDate: number = new Date().getTime();
-  const difference = itemDeadlineDate - todaysDate;
-  const daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
-  dateArray.push(String(daysDifference));
+    // Calculate days to deadline, push to dateArray
+    const itemDeadlineDate: number = deadlineDate.getTime();
+    const todaysDate: number = new Date().getTime();
+    const difference = itemDeadlineDate - todaysDate;
+    const daysDifference = Math.ceil(difference / (1000 * 60 * 60 * 24));
+    dateArray.push(String(daysDifference));
 
-  // Get full date YY-MM-DD from item deadline, push to dateArray
-  const deadlineDateMonth = (`0${deadlineDate.getMonth() + 1}`).slice(-2);
-  const deadlineDateDate = (`0${deadlineDate.getDate()}`).slice(-2);
+    // Get full date YY-MM-DD from item deadline, push to dateArray
+    const deadlineDateMonth = (`0${deadlineDate.getMonth() + 1}`).slice(-2);
+    const deadlineDateDate = (`0${deadlineDate.getDate()}`).slice(-2);
 
-  const displayDeadlineDate = `${deadlineDate.getFullYear()}-${deadlineDateMonth}-${deadlineDateDate}`;
-  dateArray.push(displayDeadlineDate);
+    const displayDeadlineDate = `${deadlineDate.getFullYear()}-${deadlineDateMonth}-${deadlineDateDate}`;
+    dateArray.push(displayDeadlineDate);
 
-  // Get full date YY-MM-DD from item dateAdded, push to dateArray
-  const dateAddedDateMonth = (`0${dateAddedDate.getMonth() + 1}`).slice(-2);
-  const dateAddedDateDate = (`0${deadlineDate.getDate()}`).slice(-2);
+    // Get full date YY-MM-DD from item dateAdded, push to dateArray
+    const dateAddedDateMonth = (`0${dateAddedDate.getMonth() + 1}`).slice(-2);
+    const dateAddedDateDate = (`0${deadlineDate.getDate()}`).slice(-2);
 
-  const displayDateAddedDate = `${dateAddedDate.getFullYear()}-${dateAddedDateMonth}-${dateAddedDateDate}`;
-  dateArray.push(displayDateAddedDate);
+    const displayDateAddedDate = `${dateAddedDate.getFullYear()}-${dateAddedDateMonth}-${dateAddedDateDate}`;
+    dateArray.push(displayDateAddedDate);
+  }
 
   return dateArray;
 }
