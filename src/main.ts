@@ -321,9 +321,9 @@ function filterCategories() {
 }
 
 function moveCheckedToEnd() {
-  for (let i = 0; i < itemList.length; i++) {
-    const checkedItemIndex = itemList.findIndex((item) => item.isChecked === true);
-    itemList.push(itemList.splice(checkedItemIndex, 1)[0]);
+  for (let i = 0; i < filteredList.length; i++) {
+    const checkedItemIndex = filteredList.findIndex((item) => item.isChecked === true);
+    filteredList.push(filteredList.splice(checkedItemIndex, 1)[0]);
   }
 }
 
@@ -332,8 +332,8 @@ function renderList(): void {
   todoItemsContainer.innerHTML = '';
 
   sortItemList();
-  moveCheckedToEnd();
   filterCategories();
+  moveCheckedToEnd();
 
   for (let i = 0; i < filteredList.length; i++) {
     const item = filteredList[i];
@@ -400,7 +400,7 @@ function removeItem(e: Event): void {
 function checkItem(e: Event): void {
   const button = e.currentTarget as HTMLSpanElement;
   const buttonID = Number(button.id);
-  const item = itemList[buttonID];
+  const item = filteredList[buttonID];
 
   if (item.isChecked) {
     item.isChecked = false;
