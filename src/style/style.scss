@@ -90,6 +90,8 @@ header {
   width: 100%;
   background-color: $toDoGrey;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 10px 0;
   z-index: 5;
   visibility: hidden;
@@ -135,8 +137,6 @@ header {
 
 /* ***********************SORT******************* */
 .sort-container {
-  flex-direction: column;
-  align-items: center;
   gap: 15px;
   left: -100%;
   transition: left 0.3s ease-in-out;
@@ -148,8 +148,6 @@ header {
 
 /* ***********************CATEGORIES******************* */
 .categories-container {
-  flex-direction: column;
-  align-items: center;
   gap: 15px;
   top: -100%;
   transition: top 0.3s ease-in-out;
@@ -190,7 +188,6 @@ header {
 
 /* ***********************ADD******************* */
 .add-item-container {
-  justify-content: center;
   right: -100%;
   transition: right 0.3s ease-in-out;
 
