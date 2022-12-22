@@ -92,9 +92,17 @@ header {
   display: flex;
   padding: 10px 0;
   z-index: 5;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s linear, opacity 0.3s linear;
 
   h2 {
     color: $toDoYellow;
+  }
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
   }
 }
 
