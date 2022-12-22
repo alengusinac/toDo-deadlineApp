@@ -95,16 +95,10 @@ header {
   padding: 10px 0;
   z-index: 5;
   visibility: hidden;
-  opacity: 0;
-  transition: visibility 0.3s linear, opacity 0.3s linear;
+  transition: all 0.3s ease-in-out;
 
   h2 {
     color: $toDoYellow;
-  }
-
-  &.open {
-    visibility: visible;
-    opacity: 1;
   }
 }
 
@@ -139,7 +133,6 @@ header {
 .sort-container {
   gap: 15px;
   left: -100%;
-  transition: left 0.3s ease-in-out;
 
   &.open {
     left: 0;
@@ -150,7 +143,6 @@ header {
 .categories-container {
   gap: 15px;
   top: -100%;
-  transition: top 0.3s ease-in-out;
 
   &.open {
     top: 80px;
@@ -189,7 +181,6 @@ header {
 /* ***********************ADD******************* */
 .add-item-container {
   right: -100%;
-  transition: right 0.3s ease-in-out;
 
   &.open {
     right: 0;

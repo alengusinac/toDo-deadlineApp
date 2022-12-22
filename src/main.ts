@@ -56,29 +56,38 @@ function openContainer(e: MouseEvent): void {
   const targetID = target.id;
 
   if (targetID === 'sorting-btn') {
+    if (sortContainer.style.visibility === 'visible') {
+      sortContainer.style.visibility = 'hidden';
+    } else {
+      sortContainer.style.visibility = 'visible';
+    }
     sortContainer?.classList.toggle('open');
-    if (addContainer?.classList.contains('open')) {
-      addContainer?.classList.remove('open');
-    }
-    if (categoriesContainer?.classList.contains('open')) {
-      categoriesContainer?.classList.remove('open');
-    }
+    addContainer?.classList.remove('open');
+    categoriesContainer?.classList.remove('open');
+    addContainer.style.visibility = 'hidden';
+    categoriesContainer.style.visibility = 'hidden';
   } else if (targetID === 'add-btn') {
+    if (addContainer.style.visibility === 'visible') {
+      addContainer.style.visibility = 'hidden';
+    } else {
+      addContainer.style.visibility = 'visible';
+    }
     addContainer?.classList.toggle('open');
-    if (sortContainer?.classList.contains('open')) {
-      sortContainer?.classList.remove('open');
-    }
-    if (categoriesContainer?.classList.contains('open')) {
-      categoriesContainer?.classList.remove('open');
-    }
+    sortContainer?.classList.remove('open');
+    categoriesContainer?.classList.remove('open');
+    sortContainer.style.visibility = 'hidden';
+    categoriesContainer.style.visibility = 'hidden';
   } else if (targetID === 'categories-btn') {
+    if (categoriesContainer.style.visibility === 'visible') {
+      categoriesContainer.style.visibility = 'hidden';
+    } else {
+      categoriesContainer.style.visibility = 'visible';
+    }
     categoriesContainer?.classList.toggle('open');
-    if (sortContainer?.classList.contains('open')) {
-      sortContainer?.classList.remove('open');
-    }
-    if (addContainer?.classList.contains('open')) {
-      addContainer?.classList.remove('open');
-    }
+    sortContainer?.classList.remove('open');
+    addContainer?.classList.remove('open');
+    addContainer.style.visibility = 'hidden';
+    sortContainer.style.visibility = 'hidden';
   }
 }
 
