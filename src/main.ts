@@ -190,6 +190,7 @@ function changeSortItemList(e: Event): void {
   }
   renderList();
   sortContainer?.classList.remove('open');
+  sortContainer.style.visibility = 'hidden';
 }
 
 // Sorting itemList between name, deadline or date added to list
