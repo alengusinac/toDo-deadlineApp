@@ -365,6 +365,7 @@ function renderList(): void {
       <p>${item.title!}</p>
 
       <p class="deadline-date">Deadline: ${deadline[1]}</p>
+      <p class="item-category">Category: ${item.category!}</p>
       <p class="date-added-date">Date added: ${deadline[2]}</p>
 
       <div class="time-left">

@@ -238,7 +238,7 @@ header {
       }
     }
 
-    &:nth-child(6) {
+    &:nth-child(7) {
       color: $toDoRed;
 
       &:hover {
@@ -258,6 +258,8 @@ header {
 
   p {
     flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
     padding: 0 20px;
     color: $textColor;
   }
@@ -312,7 +314,7 @@ header {
     }
   }
 
-  .deadline-date, .date-added-date {
+  .deadline-date, .item-category, .date-added-date {
     position: absolute;
     color: $textColor;
     left: 0;
@@ -325,6 +327,10 @@ header {
     top: -25px;
   }
 
+  .item-category {
+    bottom: -25px;
+  }
+
   .date-added-date {
     bottom: -25px;
   }
@@ -332,7 +338,7 @@ header {
   &.open {
     height: 160px;
 
-    .deadline-date, .date-added-date {
+    .deadline-date, .item-category, .date-added-date {
       position: absolute;
       color: $textColor;
       left: 50px;
@@ -344,8 +350,12 @@ header {
       top: 25px;
     }
 
+    .item-category {
+      bottom: 35px;
+    }
+
     .date-added-date {
-      bottom: 25px;
+      bottom: 10px;
     }
   }
 }
