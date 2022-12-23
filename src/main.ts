@@ -487,6 +487,15 @@ function addItemToList(): void {
   renderList();
 }
 
+function dateInputMinDate() {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = (`0${date.getMonth() + 1}`).slice(-2);
+  const day = (`0${date.getDate()}`).slice(-2);
+
+  dateInput.setAttribute('min', `${year}-${month}-${day}`);
+}
+
 // Save itemList to localStorage
 function saveData(): void {
   localStorage.setItem('data', JSON.stringify(itemList));
@@ -517,4 +526,5 @@ sortByDeadlineBtn.addEventListener('click', changeSortItemList);
 sortByDateAddedBtn.addEventListener('click', changeSortItemList);
 
 loadData();
+dateInputMinDate();
 renderList();
