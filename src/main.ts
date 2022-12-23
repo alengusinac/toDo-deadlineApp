@@ -318,6 +318,7 @@ function changeFilterCategories(e:Event): void {
 
   renderList();
   categoriesContainer?.classList.remove('open');
+  categoriesContainer.style.visibility = 'hidden';
 }
 
 function filterCategories() {
@@ -466,6 +467,7 @@ function clearForm(): void {
   titleInput.value = '';
   categoryInput.value = '';
   dateInput.value = '';
+  addContainer.style.visibility = 'hidden';
 }
 
 // Add toDo item from form to itemList
