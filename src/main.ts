@@ -280,6 +280,7 @@ function checkIfCloseDeadline(deadlineInDays: string): string {
   return '';
 }
 
+// Takes the deadline string and determines day or days to string output
 function deadlineToString(deadline: string) {
   const deadlineNumber = Number(deadline);
   if (deadlineNumber === 1 || deadlineNumber === -1) {
@@ -288,6 +289,7 @@ function deadlineToString(deadline: string) {
   return `${deadlineNumber} days`;
 }
 
+// Iterating through item list and adding all categories to new array
 function buildCategoryList() {
   const categoriesList = [];
   const categoriesListElement = categoriesContainer.querySelector('ul') as HTMLUListElement;
@@ -312,6 +314,7 @@ function buildCategoryList() {
   }
 }
 
+// Changes categoryFilter to clicked category
 function changeFilterCategories(e:Event): void {
   const target = e.currentTarget as HTMLButtonElement;
   categoryFilter = target.innerText;
@@ -321,6 +324,7 @@ function changeFilterCategories(e:Event): void {
   categoriesContainer.style.visibility = 'hidden';
 }
 
+// Filtering item list to only show clicked category
 function filterCategories() {
   const categoryTitleElm = document.querySelector('#category-title') as HTMLSpanElement;
   if (categoryFilter === 'all categories') {
@@ -333,6 +337,7 @@ function filterCategories() {
   categoryTitleElm.innerHTML = categoryFilter;
 }
 
+// Iterating through item list and moving all isChecked items to end of array
 function moveCheckedToEnd() {
   for (let i = 0; i < filteredList.length; i++) {
     const checkedItemIndex = filteredList.findIndex((item) => item.isChecked === true);
@@ -386,6 +391,7 @@ function renderList(): void {
   saveData();
 }
 
+// Opens clicked item for details of item.
 function openItemDetails(e: Event): void {
   const target = e.currentTarget as HTMLDivElement;
   const item = document.querySelector('.todo-item.open') as HTMLDivElement;
@@ -491,6 +497,7 @@ function addItemToList(): void {
   renderList();
 }
 
+// Takes todays date and puts it as min value of date input
 function dateInputMinDate() {
   const date = new Date();
   const year = date.getFullYear();
@@ -499,6 +506,8 @@ function dateInputMinDate() {
 
   dateInput.setAttribute('min', `${year}-${month}-${day}`);
 }
+
+// LOCAL STORAGE
 
 // Save itemList to localStorage
 function saveData(): void {
