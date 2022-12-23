@@ -12,9 +12,17 @@ $toDoGrey: #222;
 
 /* ***********************GLOBAL******************* */
 
+html {
+  font-family: 'Oxygen Mono', monospace;
+}
+
 body {
   background-color: $backgroundColor;
   overflow-x: hidden;
+}
+
+p, span {
+  font-size: 0.8rem;
 }
 
 button {
@@ -203,6 +211,11 @@ header {
       width: 100%;
       padding-left: 20px;
       border: 1px solid $toDoYellow;
+
+      &::placeholder {
+        font-size: 0.8rem;
+        letter-spacing: -0.05rem;
+      }
     }
   }
 }
