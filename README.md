@@ -1,50 +1,42 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=9569176&assignment_repo_type=AssignmentRepo)
-# FED22D JS Grundkurs Projektmall
-Mall för projektuppgiften i JavaScript Grundkurs för FED22D.
+# toDO - an app by Alen Gusinac
 
-Mallen innehåller:
-- Vite (för att komprimera och publicera optimerad kod)
-- ESLint, Prettier och Stylelint för kodformatering
-- TypeScript för typstöd
-- Inställningar för Visual Studio Code
+Keeping track of deadlines.
 
-## Installation
-Installera "dependencies" till projektet med följande kommando i terminalen:
+## Walkthrough
 
-- Med npm: `npm install`
-- Med pnpm: `pnpm install`
-- Med Yarn: `yarn install`
+First screen shows a header with 3 main buttons for sorting, choosing category filter and adding toDo item.
+Beneath the header is the main item list that at first sight contains the items title and days until deadline.
 
-För att köra projektet, använd scriptet "dev" i `package.json`:
+### Item container
 
-- Med npm: `npm run dev`
-- Med pnpm: `pnpm run dev`
-- Med Yarn: `yarn run dev`
+An item container contains 2 buttons, check and remove, item titel and days until deadline.
+When container is clicked the container expands to expose deadline date, category and date when item was added.
 
-## Såhär använder du mallen
-- Du arbetar primärt i mappen `src`. Där finns JavaScript och stilmallar.
-- På rotnivån i projektet hittar du `index.html`, som du kan använda såsom du använt `index.html` hittills i de olika projekten.
-- I mappen `public` lägger du alla filer som t.ex. bilder, favicons, fonter, osv. som är s.k. "static assets". T.ex. sådant du behöver länka in från SCSS.
+### Add item container
 
-### Filer du inte behöver röra
-- `src/vite-env.d.ts` - Används för att bidra med "code hinting" i editorn
-- `.gitignore` - Vilka filer som inte ska vara med i versionshanteringen
-- `tsconfig.json` - Används för att definiera hur TypeScript ska skrivas och tolkas
-- `.npmrc` - Används för att installera ev. dependencies
-- `stylelint.config.cjs` - Regler för hur SCSS ska skrivas.
-- `.pretterrc.json` - Används för att tvinga JavaScript att skrivas på ett visst sätt. Ändra om du vill göra en egen konfiguration
-- `.eslintrc.cjs` - Används för att tvinga JavaScript att skrivas på ett visst sätt. Ändra om du vill göra din egen konfiguration.
-- Mappen `.github` innehåller en s.k. action/workflow för att publicera de ändringar som pushas till main, när repot är publikt
+The add item container slides in from right when the + in the upper right corner is clicked.
+It contains of 3 input fields, title, category and deadline date togheter with a submit button that will add the item to the item list array and close the add item container.
 
-## Publicera ditt projekt
-Detta projekt innehåller en automatisk workflow/action, som fungerar såhär:
+All inputs are required and validated by not being empty.
 
-1. Varje gång du pushar till branchen `main`, så triggas ett script som heter `Deploy changes`.
-2. Detta script kör i princip kommandot `pnpm run build`. Den skapar en mapp som heter `dist`, som innehåller ditt optimerade/färdiga/publicerade projekt. Filerna i den mappen kopieras över till en ny branch, som heter `gh-pages`.
+The category input is a text field with options where you can write a new category or choose one of the existing categorys in other items.
+If there is no other item the category input will be empty.
 
-För att aktivera din sajt live behöver du:
+The date input wants and input of YYYY/MM/DD or you can choose date through a calender. Not possible to choose a date before todays date.
 
-1. Gå in i filen `vite.config.js` och ändra `base` så att den heter samma som ditt repo heter.
-2. Gå in i inställningarna för ditt repo (Settings), gå till fliken "General" och längst ner på sidan i "Danger Zone" ändrar du repots "visibility" till public.
-3. I samma "Settings"-flik på ditt repo, klicka på "Pages" i menyn till vänster.
-4. I "Branch"-dropdownen väljer du `gh-pages`.
+When all inputs are validated the submit buttons is enabled.
+
+### Category container
+
+The category container slides in from top when the middle button in the header is clicked.
+
+The category container will always have a button for 'all categories' and under that will existing categories come up.
+If item list is empty there will be no other buttons.
+When a category is choosen the item list will filter and only show item with the selected category.
+
+### Sort container
+
+The sort container slides in from left when the button in the upper left corner is clicked.
+
+The container contains 3 buttons, by Name, by Deadline and by Date added and when pushed sorts the item list by just that.
+When the same button is pushed twice the list will sort in reversed order.
