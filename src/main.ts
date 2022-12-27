@@ -290,7 +290,7 @@ function deadlineToString(deadline: string) {
 }
 
 // Iterating through item list and adding all categories to new array
-function buildCategoryList() {
+function buildCategoryList(): void {
   const categoriesList = [];
   const categoriesListElement = categoriesContainer.querySelector('ul') as HTMLUListElement;
   const browseCategoryElement = document.querySelector('#browse') as HTMLDataListElement;
@@ -331,7 +331,7 @@ function changeFilterCategories(e:Event): void {
 }
 
 // Filtering item list to only show clicked category
-function filterCategories() {
+function filterCategories(): void {
   const categoryTitleElm = document.querySelector('#category-title') as HTMLSpanElement;
   if (categoryFilter === 'all categories') {
     filteredList = itemList;
@@ -522,7 +522,7 @@ function addItemToList(): void {
 }
 
 // Takes todays date and puts it as min value of date input
-function dateInputMinDate() {
+function dateInputMinDate(): void {
   const date = new Date();
   const year = date.getFullYear();
   const month = (`0${date.getMonth() + 1}`).slice(-2);
