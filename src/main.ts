@@ -36,11 +36,11 @@ let categoryFilter = 'all categories';
 
 // toDo ITEM LIST
 type Item = {
-  title?: string,
-  category?: string,
-  deadline?: Date,
-  dateAddedToList?: Date,
-  isChecked?: boolean,
+  title: string,
+  category: string,
+  deadline: Date,
+  dateAddedToList: Date,
+  isChecked: boolean,
 };
 
 let itemList: Item[] = [];
@@ -196,41 +196,41 @@ function changeSortItemList(e: Event): void {
 // Sorting itemList between name, deadline or date added to list
 function sortItemList(): void {
   if (sortBy === 'name') {
-    itemList.sort((a, b) => ((a.title! < b.title!) ? -1 : 1));
+    itemList.sort((a, b) => (a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1));
   }
 
   if (sortBy === 'nameReversed') {
-    itemList.sort((a, b) => ((b.title! < a.title!) ? -1 : 1));
+    itemList.sort((a, b) => (b.title.toLowerCase() > a.title.toLowerCase() ? 1 : -1));
   }
 
   if (sortBy === 'deadline') {
     itemList.sort((a, b) => {
-      const dateA = new Date(a.deadline!);
-      const dateB = new Date(b.deadline!);
+      const dateA = new Date(a.deadline);
+      const dateB = new Date(b.deadline);
       return dateA.valueOf() - dateB.valueOf();
     });
   }
 
   if (sortBy === 'deadlineReversed') {
     itemList.sort((a, b) => {
-      const dateA = new Date(a.deadline!);
-      const dateB = new Date(b.deadline!);
+      const dateA = new Date(a.deadline);
+      const dateB = new Date(b.deadline);
       return dateB.valueOf() - dateA.valueOf();
     });
   }
 
   if (sortBy === 'dateAdded') {
     itemList.sort((a, b) => {
-      const dateA = new Date(a.dateAddedToList!);
-      const dateB = new Date(b.dateAddedToList!);
+      const dateA = new Date(a.dateAddedToList);
+      const dateB = new Date(b.dateAddedToList);
       return dateA.valueOf() - dateB.valueOf();
     });
   }
 
   if (sortBy === 'dateAddedReversed') {
     itemList.sort((a, b) => {
-      const dateA = new Date(a.dateAddedToList!);
-      const dateB = new Date(b.dateAddedToList!);
+      const dateA = new Date(a.dateAddedToList);
+      const dateB = new Date(b.dateAddedToList);
       return dateB.valueOf() - dateA.valueOf();
     });
   }
@@ -307,11 +307,13 @@ function buildCategoryList() {
     categoriesList.push(item.category);
   }
 
-  categoriesList.sort((a, b) => ((a! < b!) ? -1 : 1));
+  categoriesList.filter((item): item is string => !!item)
+    .sort((a, b) => (a > b ? 1 : -1));
+
   const categoriesListNoDuplicates = [...new Set(categoriesList)];
 
   for (let i = 0; i < categoriesListNoDuplicates.length; i++) {
-    const category = categoriesListNoDuplicates[i] as string;
+    const category = categoriesListNoDuplicates[i];
     categoriesListElement.innerHTML += `<li>> <button class="category-btn">${category}</button> <</li>`;
 
     browseCategoryElement.innerHTML += `<option value="${category}">`;
@@ -380,30 +382,32 @@ function renderList(): void {
 
     const categoryIcon = checkCategoryIcon(item);
 
-    todoItemsContainer.innerHTML += `
-    <article id="${i}" class="todo-item${isChecked}${closeDeadline}">
+    if (item.title !== undefined && item.category !== undefined) {
+      todoItemsContainer.innerHTML += `
+      <article id="${i}" class="todo-item${isChecked}${closeDeadline}">
 
-      <button>
-        <span id="${i}" class="material-symbols-outlined check-item-btn">task_alt</span>
-      </button>
+        <button>
+          <span id="${i}" class="material-symbols-outlined check-item-btn">task_alt</span>
+        </button>
 
-      <p>${categoryIcon}${item.title!}</p>
+        <p>${categoryIcon}${item.title}</p>
 
-      <p class="deadline-date">Deadline: ${deadline[1]}</p>
-      <p class="item-category">Category: ${item.category!}</p>
-      <p class="date-added-date">Date added: ${deadline[2]}</p>
+        <p class="deadline-date">Deadline: ${deadline[1]}</p>
+        <p class="item-category">Category: ${item.category}</p>
+        <p class="date-added-date">Date added: ${deadline[2]}</p>
 
-      <div class="time-left">
-        <span class="material-symbols-outlined">hourglass_empty</span>
-        <span>${renderDeadline}</span>
-      </div>
+        <div class="time-left">
+          <span class="material-symbols-outlined">hourglass_empty</span>
+          <span>${renderDeadline}</span>
+        </div>
 
-      <button>
-        <span id="${i}" class="material-symbols-outlined remove-item-btn">do_not_disturb_on</span>
-      </button>
-    
-    </article>
-    `;
+        <button>
+          <span id="${i}" class="material-symbols-outlined remove-item-btn">do_not_disturb_on</span>
+        </button>
+      
+      </article>
+      `;
+    }
   }
 
   buildCategoryList();
@@ -447,7 +451,7 @@ function checkItem(e: Event): void {
   } else {
     item.isChecked = true;
   }
-  console.log(item.isChecked);
+
   renderList();
 }
 
@@ -536,10 +540,9 @@ function saveData(): void {
 
 // Load itemList from localStorage
 function loadData(): void {
-  if (localStorage.getItem('data') !== null) {
-    itemList = JSON.parse(localStorage.getItem('data')!) as [];
-  }
+  itemList = JSON.parse(localStorage.getItem('data') || '{}') as [];
 }
+
 /* **********************LOGIC********************** */
 
 // HEADER EVENTLISTENERS
