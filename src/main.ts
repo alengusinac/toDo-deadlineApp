@@ -295,7 +295,11 @@ function buildCategoryList() {
   const categoriesListElement = categoriesContainer.querySelector('ul') as HTMLUListElement;
   const browseCategoryElement = document.querySelector('#browse') as HTMLDataListElement;
   categoriesListElement.innerHTML = '<li>> <button class="category-btn">all categories</button> <</li>';
-  browseCategoryElement.innerHTML = '';
+  browseCategoryElement.innerHTML = `
+  <option value="Important">
+  <option value="Home">
+  <option value="Work">
+  `;
 
   for (let i = 0; i < itemList.length; i++) {
     const item = itemList[i];
@@ -337,6 +341,20 @@ function filterCategories() {
   categoryTitleElm.innerHTML = categoryFilter;
 }
 
+function checkCategoryIcon(item: Item): string {
+  if (item.category === 'Important') {
+    return '<span class="material-symbols-outlined">star</span>';
+  }
+  if (item.category === 'Home') {
+    return '<span class="material-symbols-outlined">cottage</span>';
+  }
+  if (item.category === 'Work') {
+    return '<span class="material-symbols-outlined">apartment</span>';
+  }
+
+  return '';
+}
+
 // Iterating through item list and moving all isChecked items to end of array
 function moveCheckedToEnd() {
   for (let i = 0; i < filteredList.length; i++) {
@@ -360,6 +378,8 @@ function renderList(): void {
     const closeDeadline = checkIfCloseDeadline(deadline[0]);
     const renderDeadline = deadlineToString(deadline[0]);
 
+    const categoryIcon = checkCategoryIcon(item);
+
     todoItemsContainer.innerHTML += `
     <article id="${i}" class="todo-item${isChecked}${closeDeadline}">
 
@@ -367,7 +387,7 @@ function renderList(): void {
         <span id="${i}" class="material-symbols-outlined check-item-btn">task_alt</span>
       </button>
 
-      <p>${item.title!}</p>
+      <p>${categoryIcon}${item.title!}</p>
 
       <p class="deadline-date">Deadline: ${deadline[1]}</p>
       <p class="item-category">Category: ${item.category!}</p>
