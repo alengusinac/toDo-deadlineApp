@@ -540,7 +540,7 @@ function saveData(): void {
 
 // Load itemList from localStorage
 function loadData(): void {
-  itemList = JSON.parse(localStorage.getItem('data') || '{}') as [];
+  itemList = JSON.parse(localStorage.getItem('data') || '[]') as [];
 }
 
 /* **********************LOGIC********************** */
